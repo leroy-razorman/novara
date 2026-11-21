@@ -9,7 +9,6 @@ export default function Page() {
   return (
     <section className="page on">
   <div className="phead"><div className="wrap"><div className="kicker">Shop</div><h1>Essentials for a healthy home</h1><p className="lede">Made in South Africa. Prices include VAT. Free delivery on orders over R500.</p></div></div>
-  <div className="wrap"><figure className="ph banner rv" style={{ aspectRatio: "21/6", minHeight: "180px" } as React.CSSProperties}><img src="/img/water.jpg" alt="Sunlight on clear rippling water" /><figcaption>Clean water, clean home, good health</figcaption></figure></div>
   <div className="wrap" style={{ paddingTop: "36px" } as React.CSSProperties}>
     <ShopGrid />
     <div className="shopnote">

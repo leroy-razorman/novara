@@ -5,13 +5,14 @@ import Bottle from "./Bottle";
 import { useStore } from "./Store";
 import { PRODUCTS, R, type Product } from "@/lib/products";
 
-function AddButton({ id }: { id: string }) {
+function AddButton({ id, name }: { id: string; name: string }) {
   const { add } = useStore();
   const [done, setDone] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   return (
     <button
       className={`add${done ? " done" : ""}`}
+      aria-label={`Add ${name} to basket`}
       onClick={(e) => {
         e.stopPropagation();
         add(`${id}|0`, 1);
@@ -20,7 +21,7 @@ function AddButton({ id }: { id: string }) {
         timer.current = setTimeout(() => setDone(false), 1200);
       }}
     >
-      {done ? "Added" : "Add to basket"}
+      {done ? "✓" : "+"}
     </button>
   );
 }
@@ -30,7 +31,7 @@ function ProductCard({ p, i }: { p: Product; i: number }) {
   return (
     <article
       className="product rv"
-      style={{ "--d": `${(i % 3) * 0.08}s` } as React.CSSProperties}
+      style={{ "--d": `${(i % 6) * 0.05}s` } as React.CSSProperties}
       tabIndex={0}
       role="button"
       aria-label={`${p.name}: view details`}
@@ -43,19 +44,18 @@ function ProductCard({ p, i }: { p: Product; i: number }) {
       }}
     >
       <div className="vis">
-        <span className="tag">{p.cat}</span>
         <Bottle {...p.bottle} />
       </div>
       <div className="info">
+        <span className="cat">{p.cat}</span>
         <h3>{p.name}</h3>
         <p className="use">{p.use}</p>
-        <span className="more">View details</span>
         <div className="row">
           <span className="price">
             {R(p.sizes[0][1])}
             <small>{p.sizes[0][0]}</small>
           </span>
-          <AddButton id={p.id} />
+          <AddButton id={p.id} name={p.name} />
         </div>
       </div>
     </article>
@@ -65,7 +65,7 @@ function ProductCard({ p, i }: { p: Product; i: number }) {
 /** The six-product grid on the home page. */
 export function ProductGrid() {
   return (
-    <div className="grid">
+    <div className="grid shelf">
       {PRODUCTS.map((p, i) => (
         <ProductCard key={p.id} p={p} i={i} />
       ))}
