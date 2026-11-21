@@ -386,3 +386,21 @@ header.site{background:rgba(255,255,255,.68);-webkit-backdrop-filter:saturate(18
   .pillars,.progs{gap:40px}
   .cinfo .ph{width:88%;margin-left:auto;margin-right:auto}
 }
+/* product cards: midway between the first design's large cards and the compact ones, three across on desktop, descriptions on every card */
+.grid .product .use{display:-webkit-box}
+@media(min-width:641px){
+  .grid,.grid.shelf{grid-template-columns:repeat(3,1fr);gap:24px}
+  .product .vis,.grid:not(.shelf) .product .vis{aspect-ratio:auto;height:250px}
+  .product .vis svg,.grid:not(.shelf) .product .vis svg{height:68%}
+  .product .info{padding:18px;gap:4px}
+  .product .cat{font-size:13px}
+  .product h3{font-size:18px}
+  .grid .product .use{font-size:15px;line-height:1.5;-webkit-line-clamp:3;margin-top:6px}
+  .product .row{padding-top:14px}
+  .product .price{font-size:18px}
+  .product .price small{font-size:13.5px}
+  .add{width:38px;height:38px}
+}
+@media(min-width:641px) and (max-width:940px){.grid,.grid.shelf{grid-template-columns:repeat(2,1fr)}}
+/* phones: size sits on its own line under the price instead of breaking mid-way, and descriptions get three lines */
+@media(max-width:640px){.product .price small{display:block;margin-left:0;line-height:1.3}.grid .product .use{-webkit-line-clamp:3}}
