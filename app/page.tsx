@@ -1,200 +1,66 @@
+// Markup and copy ported verbatim from the Novara design.
 import Link from "next/link";
-import Bottle from "@/components/Bottle";
-import ProductCard from "@/components/ProductCard";
-import { categories, getProduct, products } from "@/lib/products";
+import { Newsletter, ScrollButton } from "@/components/Bits";
+import { ProductGrid } from "@/components/Products";
 
-const claims = ["Concentrated formulas", "Bulk sizes up to 25L", "Colour-safe laundry care", "Nationwide delivery", "Home & business", "Fair, honest pricing"];
-
-const reasons = [
-  { n: "01", title: "Concentrated, not watered down", body: "Thicker formulas mean smaller doses. One cap, one squeeze, one spray does the job it promises on the label." },
-  { n: "02", title: "Sizes that make sense", body: "From a 500ml spray under the sink to a 25L drum in the storeroom — buy what you'll actually use and pay less per litre." },
-  { n: "03", title: "Made for real mess", body: "Tested on braai grease, school uniforms, muddy tiles and busy commercial kitchens. Not just a nice smell." },
-];
-
-const Bubble = ({ className }: { className: string }) => (
-  <span className={`absolute rounded-full border-2 border-white/60 bg-white/20 ${className}`} aria-hidden="true" />
-);
-
-export default function Home() {
-  const hero = ["dishwashing-liquid", "auto-laundry-liquid", "multi-purpose-cleaner"].map((s) => getProduct(s)!);
-  const bestsellers = products.filter((p) => p.badge === "Bestseller").concat(getProduct("pine-gel")!);
-  const catProduct = (id: string) => products.find((p) => p.category === id)!;
-
+export default function Page() {
   return (
-    <>
-      {/* Hero */}
-      <section className="container-x grid items-center gap-10 pt-10 pb-16 lg:grid-cols-[1.05fr_1fr] lg:pt-16 lg:pb-24">
-        <div className="animate-rise">
-          <p className="eyebrow">Household &amp; industrial detergents</p>
-          <h1 className="display mt-5 text-[clamp(2.9rem,7.4vw,5.6rem)] leading-[0.95]">
-            Clean that <br />
-            pulls its{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10">weight.</span>
-              <span className="absolute inset-x-0 bottom-[0.08em] -z-0 h-[0.32em] -rotate-1 rounded-sm bg-citrus" aria-hidden="true" />
-            </span>
-          </h1>
-          <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-soft">
-            Laundry, kitchen, floor and bathroom cleaners that work the first time — in sizes for a flat, a family or a full factory floor.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/shop" className="btn btn-primary !px-7 !py-4 text-base">
-              Shop the range
-            </Link>
-            <Link href="/wholesale" className="btn btn-outline !px-7 !py-4 text-base">
-              Buy in bulk
-            </Link>
-          </div>
-          <dl className="mt-12 flex gap-8 border-t border-line pt-6 text-sm sm:gap-12">
-            {[
-              ["12", "everyday essentials"],
-              ["25L", "largest drum size"],
-              ["R750+", "ships free"],
-            ].map(([k, v]) => (
-              <div key={v}>
-                <dt className="display text-3xl">{k}</dt>
-                <dd className="mt-1 text-ink-soft">{v}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
+    <section className="page on">
+  <div className="hero"><div className="wrap">
+    <div>
+      <h1>A new day, every day.</h1>
+      <p className="lede">A clean home is a daily fresh start for your family&apos;s health. Novara makes the products that make it possible, and works to put them in the homes that need them most.</p>
+      <div className="acts"><ScrollButton to="home-shop">Shop now</ScrollButton><Link className="btn outline" href="/our-work">See our work</Link></div>
+      <div className="facts"><div><b>Made in South Africa</b>Local manufacture</div><div><b>One standard</b>Same formula for everyone</div><div><b>Sales fund supply</b>To clinics and schools</div></div>
+    </div>
+    <div className="strokes"><figure className="ph"><img src="/img/hero.jpg" alt="A mother holding a broom shares a high five with her two laughing toddlers in a bright kitchen" style={{ objectPosition: "58% center" } as React.CSSProperties} /></figure></div>
+  </div></div>
 
-        <div className="relative mx-auto aspect-square w-full max-w-[560px]">
-          <div className="absolute inset-[4%] rounded-full bg-aqua" />
-          <div className="absolute inset-[4%] rounded-full bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.35),transparent_55%)]" />
-          <Bubble className="top-[6%] right-[14%] h-14 w-14 animate-float" />
-          <Bubble className="top-[24%] left-[2%] h-8 w-8 animate-float [animation-delay:-2s]" />
-          <Bubble className="right-[2%] bottom-[30%] h-10 w-10 animate-float [animation-delay:-4s]" />
-          <Bubble className="bottom-[6%] left-[16%] h-5 w-5 animate-float [animation-delay:-1s]" />
-          <div className="absolute inset-0 flex items-end justify-center pb-[10%]">
-            <Bottle {...hero[0]} className="h-[58%] translate-x-[18%] -rotate-6 drop-shadow-xl" />
-            <Bottle {...hero[1]} className="relative z-10 h-[78%] drop-shadow-2xl" />
-            <Bottle {...hero[2]} className="h-[62%] -translate-x-[18%] rotate-6 drop-shadow-xl" />
-          </div>
-          <Link
-            href="/shop/auto-laundry-liquid"
-            className="absolute top-[12%] left-0 z-20 rotate-[-8deg] rounded-2xl bg-white px-4 py-3 shadow-xl shadow-ink/10 transition hover:rotate-0"
-          >
-            <span className="block text-[11px] font-semibold tracking-wide text-aqua-deep uppercase">Bestseller</span>
-            <span className="block text-sm font-semibold">Laundry Liquid 2L</span>
-            <span className="block text-sm text-ink-soft">R89.99</span>
-          </Link>
-        </div>
-      </section>
+  <div className="sec" id="home-shop"><div className="wrap">
+    <div className="shead rv"><div><div className="kicker">Shop</div><h2>Essentials for a healthy home</h2><p>Six products for the whole house. Select one to see how it works. Free delivery on orders over R500.</p></div><Link className="btn outline" href="/shop">Visit the full shop</Link></div>
+    <ProductGrid />
+  </div></div>
 
-      {/* Marquee */}
-      <div className="overflow-hidden bg-citrus py-4" aria-hidden="true">
-        <div className="flex w-max animate-marquee">
-          {[...claims, ...claims, ...claims, ...claims].map((c, i) => (
-            <span key={i} className="display flex items-center text-lg whitespace-nowrap uppercase">
-              {c}
-              <span className="mx-7 text-base">✦</span>
-            </span>
-          ))}
-        </div>
+  <div className="sec tint"><div className="wrap">
+    <div className="rv"><div className="kicker">What we believe</div><h2 style={{ maxWidth: "17em" } as React.CSSProperties}>The small acts of a clean home are the foundation of public health.</h2></div>
+    <div className="pillars">
+      <div className="pillar rv"><figure className="ph"><img src="/img/tap.jpg" alt="Hands cupped under running water in golden light" /><figcaption>Clean water, clean hands</figcaption></figure><h3>Hygiene where it is missing</h3><p>We partner with clinics, schools and community organisations to supply cleaning essentials to households that cannot reliably afford them.</p></div>
+      <div className="pillar rv" style={{ "--d": ".1s" } as React.CSSProperties}><figure className="ph"><img src="/img/foam.jpg" alt="Soapy hands being washed beside a sunlit window" /><figcaption>The same formula, everywhere</figcaption></figure><h3>Products without compromise</h3><p>The same formulations go to a partner clinic and to your kitchen. We do not make a lesser version for anyone.</p></div>
+      <div className="pillar rv" style={{ "--d": ".2s" } as React.CSSProperties}><figure className="ph"><img src="/img/curtains.jpg" alt="A woman opening white curtains to the morning" /><figcaption>Every morning, a fresh start</figcaption></figure><h3>Health as a daily practice</h3><p>Our work is measured in routines kept, not units shipped. We design for the habit, and the habit protects the family.</p></div>
+    </div>
+  </div></div>
+
+  <div className="sec"><div className="wrap">
+    <div className="where rv">
+      <img src="/img/savanna.jpg" alt="Sunrise through acacia trees over savanna grassland in Sub-Saharan Africa" />
+      <div className="in">
+        <div className="kicker" style={{ color: "var(--mint)" } as React.CSSProperties}>Where we work</div>
+        <h2>Starting in Sub-Saharan Africa</h2>
+        <p>Novara begins in South Africa, with programmes shaped alongside the communities they serve. As we grow, the model travels with us: local partners, local supply, one standard of care.</p>
+        <div className="regions"><div><b>Western Cape</b>Founding programmes</div><div><b>Eastern Cape</b>Clinic partnerships</div><div><b>Gauteng</b>School hygiene</div><div><b>Southern Africa</b>Next</div></div>
+        <Link className="btn white" href="/our-work">Our programmes</Link>
       </div>
+    </div>
+  </div></div>
 
-      {/* Categories */}
-      <section className="container-x pt-20">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="eyebrow">Shop by room</p>
-            <h2 className="display mt-3 text-4xl sm:text-5xl">Every corner, covered.</h2>
-          </div>
-          <Link href="/shop" className="text-sm font-semibold underline underline-offset-4 hover:text-aqua-deep">
-            View all products
-          </Link>
-        </div>
-        <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
-          {categories.map((c, i) => {
-            const p = catProduct(c.id);
-            return (
-              <Link
-                key={c.id}
-                href={`/shop?category=${c.id}`}
-                className={`group relative flex aspect-[3/4] flex-col overflow-hidden rounded-3xl p-5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-ink/10 ${i === 0 ? "max-md:col-span-2 max-md:aspect-[2/1]" : ""}`}
-                style={{ background: c.tint }}
-              >
-                <h3 className="display text-xl">{c.name}</h3>
-                <p className="mt-1 max-w-[12rem] text-sm text-ink-soft">{c.blurb}</p>
-                <Bottle {...p} className="absolute -right-4 -bottom-8 h-[68%] rotate-6 transition duration-500 group-hover:-translate-y-3 group-hover:rotate-0" />
-                <span className="mt-auto inline-flex w-fit items-center gap-1 rounded-full bg-white/80 px-3 py-1.5 text-xs font-semibold">
-                  Shop <span aria-hidden="true">→</span>
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+  <div className="sec dark water"><div className="wrap quote">
+    <figure className="ph a32 rv"><img src="/img/linen.jpg" alt="White linen drying on a line under a blue sky" /></figure>
+    <blockquote className="rv" style={{ "--d": ".12s" } as React.CSSProperties}>Every morning the house is set right again. That is not housework. That is the first act of care a family performs for itself each day.<cite>The idea behind the Novara mark: a new day rising over the whole world</cite></blockquote>
+  </div></div>
 
-      {/* Bestsellers */}
-      <section className="container-x pt-24">
-        <p className="eyebrow">Customer favourites</p>
-        <h2 className="display mt-3 text-4xl sm:text-5xl">The ones that keep selling out.</h2>
-        <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-4">
-          {bestsellers.map((p) => (
-            <ProductCard key={p.slug} product={p} />
-          ))}
-        </div>
-      </section>
+  <div className="sec"><div className="wrap split">
+    <div className="strokes rv"><figure className="ph a54"><img src="/img/kitchen-hug.jpg" alt="A mother and daughter hugging in their kitchen" /><figcaption>Home, set right for the day</figcaption></figure></div>
+    <div className="rv" style={{ "--d": ".1s" } as React.CSSProperties}><div className="kicker">How it works</div><h2>What a purchase does</h2><p>Novara is funded by the products it makes. Each order supports the supply of the same products to partner households, clinics and schools.</p><p>We report on it once a year, in public.</p><div className="acts"><ScrollButton to="home-shop">Shop now</ScrollButton><Link className="btn outline" href="/our-work">See the programmes</Link></div></div>
+  </div></div>
 
-      {/* Why Novara */}
-      <section className="mt-24 bg-ink py-20 text-white">
-        <div className="container-x grid gap-14 lg:grid-cols-[1fr_1.4fr]">
-          <div>
-            <p className="eyebrow !text-citrus">Why Novara</p>
-            <h2 className="display mt-3 text-4xl leading-tight sm:text-5xl">
-              Less fuss. <br />
-              More clean.
-            </h2>
-            <p className="mt-5 max-w-sm leading-relaxed text-white/70">
-              We make a short list of products and we make them properly — so you don&apos;t need a cupboard full of bottles to keep a place spotless.
-            </p>
-            <Link href="/about" className="btn btn-citrus mt-8">
-              Read our story
-            </Link>
-          </div>
-          <ol className="divide-y divide-white/15 border-y border-white/15">
-            {reasons.map((r) => (
-              <li key={r.n} className="grid gap-2 py-7 sm:grid-cols-[4rem_1fr]">
-                <span className="display text-2xl text-aqua">{r.n}</span>
-                <div>
-                  <h3 className="display text-2xl">{r.title}</h3>
-                  <p className="mt-2 max-w-lg leading-relaxed text-white/70">{r.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* Bulk band */}
-      <section className="container-x pt-24">
-        <div className="relative grid overflow-hidden rounded-[2rem] bg-aqua md:grid-cols-2">
-          <div className="p-8 sm:p-12 lg:p-16">
-            <p className="eyebrow !text-ink">For business</p>
-            <h2 className="display mt-3 text-4xl leading-tight sm:text-5xl">Buy it by the drum.</h2>
-            <p className="mt-4 max-w-md leading-relaxed text-ink/80">
-              Restaurants, guesthouses, schools, laundromats and cleaning contractors get trade pricing, 20L and 25L drums and scheduled deliveries.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/wholesale" className="btn btn-primary">
-                Get a trade quote
-              </Link>
-              <Link href="/shop" className="btn btn-outline">
-                Browse bulk sizes
-              </Link>
-            </div>
-          </div>
-          <div className="relative min-h-64">
-            <div className="absolute inset-0 flex items-end justify-center gap-0 md:justify-end md:pr-10">
-              <Bottle {...getProduct("tile-floor-cleaner")!} className="h-[70%] translate-x-6 translate-y-4 -rotate-3" />
-              <Bottle {...getProduct("auto-laundry-liquid")!} className="relative z-10 h-[95%] translate-y-6" />
-              <Bottle {...getProduct("fabric-softener")!} className="h-[75%] -translate-x-6 translate-y-4 rotate-3" />
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+  <div className="sec tint"><div className="wrap split flip">
+    <div className="rv">
+      <div className="kicker">Newsletter</div><h2>Stay up to date</h2>
+      <p>A short letter, a few times a year: where the programmes are, what the products are doing, and what we have learned. No promotions.</p>
+      <Newsletter />
+    </div>
+    <figure className="ph a54 rv" style={{ "--d": ".1s" } as React.CSSProperties}><img src="/img/friends.jpg" alt="Three friends smiling and waving in the sun" /></figure>
+  </div></div>
+    </section>
   );
 }

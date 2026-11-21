@@ -1,63 +1,67 @@
-// Tiny client-side cart kept in localStorage so the demo feels real.
-// Replace with the commerce backend's cart when that work starts.
+// Browser-only basket, kept in localStorage exactly as the design does:
+// { "<productId>|<sizeIndex>": quantity }. Replace with the real cart later.
+import { P } from "./products";
 
-export type CartLine = { slug: string; size: string; qty: number };
+export type Cart = Record<string, number>;
 
-const KEY = "novara-cart";
-const EMPTY: CartLine[] = [];
-let lines: CartLine[] | null = null;
+const KEY = "novara-basket";
+const EMPTY: Cart = {};
+let cart: Cart | null = null;
 const listeners = new Set<() => void>();
 
-function read(): CartLine[] {
+function read(): Cart {
   try {
-    const raw = window.localStorage.getItem(KEY);
-    const parsed = raw ? JSON.parse(raw) : [];
-    return Array.isArray(parsed) ? parsed : [];
+    const parsed = JSON.parse(window.localStorage.getItem(KEY) || "{}");
+    const clean: Cart = {};
+    for (const [k, q] of Object.entries(parsed ?? {})) {
+      const [id, s] = k.split("|");
+      const p = P(id);
+      if (p && p.sizes[+s] && typeof q === "number" && q > 0) clean[k] = q;
+    }
+    return clean;
   } catch {
-    return [];
+    return {};
   }
 }
 
-function commit(next: CartLine[]) {
-  lines = next;
+function commit(next: Cart) {
+  cart = next;
   try {
     window.localStorage.setItem(KEY, JSON.stringify(next));
   } catch {
-    // storage unavailable — keep the in-memory cart
+    // storage unavailable — keep the in-memory basket
   }
   listeners.forEach((l) => l());
 }
 
 export const cartStore = {
-  subscribe(listener: () => void) {
-    listeners.add(listener);
-    return () => listeners.delete(listener);
+  subscribe(l: () => void) {
+    listeners.add(l);
+    return () => listeners.delete(l);
   },
   getSnapshot() {
-    if (lines === null) lines = read();
-    return lines;
+    if (cart === null) cart = read();
+    return cart;
   },
   getServerSnapshot() {
     return EMPTY;
   },
-  add(slug: string, size: string, qty = 1) {
-    const current = cartStore.getSnapshot();
-    const existing = current.find((l) => l.slug === slug && l.size === size);
-    commit(
-      existing
-        ? current.map((l) => (l === existing ? { ...l, qty: l.qty + qty } : l))
-        : [...current, { slug, size, qty }],
-    );
+  add(key: string, n: number) {
+    const c = cartStore.getSnapshot();
+    commit({ ...c, [key]: (c[key] || 0) + n });
   },
-  setQty(slug: string, size: string, qty: number) {
-    const current = cartStore.getSnapshot();
-    commit(
-      qty <= 0
-        ? current.filter((l) => !(l.slug === slug && l.size === size))
-        : current.map((l) => (l.slug === slug && l.size === size ? { ...l, qty } : l)),
-    );
+  change(key: string, delta: number) {
+    const c = { ...cartStore.getSnapshot() };
+    c[key] = Math.max(0, (c[key] || 0) + delta);
+    if (!c[key]) delete c[key];
+    commit(c);
+  },
+  remove(key: string) {
+    const c = { ...cartStore.getSnapshot() };
+    delete c[key];
+    commit(c);
   },
   clear() {
-    commit([]);
+    commit({});
   },
 };

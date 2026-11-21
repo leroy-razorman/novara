@@ -1,63 +1,29 @@
+// Markup and copy ported verbatim from the Novara design.
 import type { Metadata } from "next";
-import EnquiryForm from "@/components/EnquiryForm";
+import { ChatButton, ContactForm } from "@/components/Bits";
 
 export const metadata: Metadata = { title: "Contact" };
 
-const details = [
-  { k: "Email", v: "hello@novara.example" },
-  { k: "Phone", v: "000 000 0000" },
-  { k: "Hours", v: "Mon – Fri, 08:00 – 17:00" },
-  { k: "Address", v: "Street address, Suburb, City" },
-];
-
-const faqs = [
-  { q: "How long does delivery take?", a: "Orders are dispatched within 1–2 business days and usually arrive within 2–5 business days depending on where you are." },
-  { q: "Do you deliver bulk drums?", a: "Yes. 20L and 25L drums are delivered by courier or our own vehicles, depending on your area and order size." },
-  { q: "Can I open a trade account?", a: "Businesses can apply for a 30-day account. Use the bulk & wholesale form and we'll send the application." },
-  { q: "Where can I get safety data sheets?", a: "Send us a message with the product name and we'll email the SDS straight back." },
-];
-
-export default function ContactPage() {
+export default function Page() {
   return (
-    <div className="container-x pt-12 lg:pt-16">
-      <p className="eyebrow">Contact</p>
-      <h1 className="display mt-3 text-5xl sm:text-7xl">Let&apos;s talk clean.</h1>
-
-      <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_1.3fr]">
-        <div>
-          <p className="max-w-sm text-lg leading-relaxed text-ink-soft">Questions about an order, a product or a trade account? Send a message and a real person will reply.</p>
-          <dl className="mt-8 divide-y divide-line border-y border-line">
-            {details.map((d) => (
-              <div key={d.k} className="grid grid-cols-[6rem_1fr] py-4 text-sm">
-                <dt className="font-semibold text-ink-soft">{d.k}</dt>
-                <dd className="font-medium">{d.v}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-        <EnquiryForm
-          submitLabel="Send message"
-          successTitle="Message sent"
-          fields={[
-            { name: "name", label: "Name", half: true, required: true },
-            { name: "email", label: "Email", type: "email", half: true, required: true },
-            { name: "topic", label: "Topic", options: ["General question", "An existing order", "Product advice", "Trade account", "Something else"] },
-            { name: "message", label: "Message", textarea: true, required: true },
-          ]}
-        />
+    <section className="page on">
+  <div className="phead"><div className="wrap"><div className="kicker">Contact</div><h1>Talk to Novara</h1><p className="lede">Orders, partnerships, press or anything else. We reply within two working days.</p></div></div>
+  <div className="wrap"><div className="contact">
+    <div className="cinfo">
+      <h2>Other ways to reach us</h2>
+      <div className="cways">
+        <div className="cway"><i><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></i><div><b>Email</b><span>hello@novara.org</span></div></div>
+        <div className="cway"><i><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></i><div><b>Telephone</b><span>+27 21 000 0000, weekdays 8am to 5pm</span></div></div>
+        <div className="cway"><i><svg viewBox="0 0 24 24"><path d="M12 21s7-6.200 7-11.500A7 7 0 0 0 5 9.500C5 14.800 12 21 12 21z"/><circle cx="12" cy="9.500" r="2.500"/></svg></i><div><b>Registered office</b><span>Cape Town, South Africa</span></div></div>
+        <div className="cway"><i><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></i><div><b>Quick answers</b><span><ChatButton style={{ textDecoration: "underline", color: "var(--mint)" } as React.CSSProperties}>Ask the Novara assistant</ChatButton></span></div></div>
       </div>
-
-      <section className="pt-24">
-        <h2 className="display text-4xl sm:text-5xl">Common questions</h2>
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {faqs.map((f) => (
-            <div key={f.q} className="rounded-3xl bg-white p-7">
-              <h3 className="display text-xl">{f.q}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{f.a}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <figure className="ph" style={{ marginTop: "auto" } as React.CSSProperties}><img src="/img/lift.jpg" alt="A mother lifting her laughing child" style={{ objectPosition: "center 30%" } as React.CSSProperties} /></figure>
     </div>
+    <div className="cform">
+      <h2>Send us a message</h2><p>All fields are required.</p>
+      <ContactForm />
+    </div>
+  </div></div>
+    </section>
   );
 }

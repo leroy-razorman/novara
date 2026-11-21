@@ -2,14 +2,15 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="container-x grid min-h-[60vh] place-items-center py-20 text-center">
-      <div>
-        <p className="display text-[8rem] leading-none text-aqua">404</p>
-        <h1 className="display mt-2 text-4xl">This page got scrubbed away.</h1>
-        <Link href="/" className="btn btn-primary mt-8">
-          Back to home
-        </Link>
+    <section className="page on">
+      <div className="wrap thanks">
+        <div className="sun" aria-hidden="true"></div>
+        <h1 style={{ fontSize: "clamp(2rem,4vw,3rem)" }}>We could not find that page.</h1>
+        <div className="acts">
+          <Link className="btn ink" href="/shop">Shop now</Link>
+          <Link className="btn outline" href="/">Back to the site</Link>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

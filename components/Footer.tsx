@@ -1,60 +1,52 @@
 import Link from "next/link";
-import Logo from "./Logo";
-import NewsletterForm from "./NewsletterForm";
-import { categories } from "@/lib/products";
 
 export default function Footer() {
   return (
-    <footer className="mt-24 bg-ink text-white">
-      <div className="container-x grid gap-12 py-16 lg:grid-cols-[1.3fr_2fr]">
-        <div>
-          <Logo />
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
-            Hard-working cleaning products for homes and businesses — honest formulas, generous sizes, fair prices.
-          </p>
-          <p className="mt-8 text-sm font-semibold">Get cleaning tips and specials</p>
-          <NewsletterForm />
-        </div>
-        <div className="grid grid-cols-2 gap-8 text-sm sm:grid-cols-3">
+    <footer>
+      <div className="wrap">
+        <div className="cols">
           <div>
-            <p className="mb-4 font-semibold text-citrus">Shop</p>
-            <ul className="space-y-2.5 text-white/75">
-              {categories.map((c) => (
-                <li key={c.id}>
-                  <Link href={`/shop?category=${c.id}`} className="hover:text-white">
-                    {c.name}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link href="/shop" className="hover:text-white">
-                  All products
-                </Link>
-              </li>
+            <img src="/mark-white.png" alt="" style={{ height: 48, width: "auto", marginBottom: 16 }} />
+            <p style={{ maxWidth: "26em" }}>Novara is a health organisation and maker of household cleaning products. A new day, every day.</p>
+          </div>
+          <div>
+            <h4>Shop</h4>
+            <ul>
+              <li><Link href="/shop">All products</Link></li>
+              <li><Link href="/help">Delivery</Link></li>
+              <li><Link href="/help">Returns</Link></li>
+              <li><Link href="/basket">Basket</Link></li>
             </ul>
           </div>
           <div>
-            <p className="mb-4 font-semibold text-citrus">Company</p>
-            <ul className="space-y-2.5 text-white/75">
-              <li><Link href="/about" className="hover:text-white">Our story</Link></li>
-              <li><Link href="/wholesale" className="hover:text-white">Bulk &amp; wholesale</Link></li>
-              <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
+            <h4>Organisation</h4>
+            <ul>
+              <li><Link href="/our-work">Our work</Link></li>
+              <li><Link href="/about">About</Link></li>
+              <li><Link href="/contact">Partnerships</Link></li>
+              <li><Link href="/contact">Press</Link></li>
             </ul>
           </div>
           <div>
-            <p className="mb-4 font-semibold text-citrus">Help</p>
-            <ul className="space-y-2.5 text-white/75">
-              <li><Link href="/contact" className="hover:text-white">Delivery &amp; returns</Link></li>
-              <li><Link href="/contact" className="hover:text-white">Safety data sheets</Link></li>
-              <li><Link href="/contact" className="hover:text-white">FAQs</Link></li>
+            <h4>Support</h4>
+            <ul>
+              <li><Link href="/help">Help</Link></li>
+              <li><Link href="/help">Product safety</Link></li>
+              <li><Link href="/contact">Contact</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Contact</h4>
+            <ul>
+              <li>hello@novara.org</li>
+              <li>+27 21 000 0000</li>
+              <li>Cape Town, South Africa</li>
             </ul>
           </div>
         </div>
-      </div>
-      <div className="border-t border-white/10">
-        <div className="container-x flex flex-col justify-between gap-2 py-6 text-xs text-white/50 sm:flex-row">
-          <p>© 2026 Novara. All rights reserved.</p>
-          <p>Privacy · Terms · PAIA</p>
+        <div className="legal">
+          <span>© 2026 Novara. Company registration pending.</span>
+          <span>Photography via Pexels · Privacy · Terms</span>
         </div>
       </div>
     </footer>

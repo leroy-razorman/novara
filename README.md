@@ -8,6 +8,9 @@ npm install
 npm run dev   # http://localhost:3000
 ```
 
-Next.js (App Router) + Tailwind. This is the visual build: products, prices and
-copy in `lib/products.ts` are placeholders, the cart lives in the browser
-(`lib/cart-store.ts`), and checkout and the enquiry forms don't send anything yet.
+Next.js (App Router). The site is a port of the Novara design: `app/globals.css`
+is the design's stylesheet, the photos are in `public/img` and the logo files in
+`public/`. This is the visual build only: the catalogue is `lib/products.ts`, the
+basket lives in the browser (`lib/cart-store.ts`), checkout takes no payment, the
+contact and newsletter forms send nothing, and the assistant gives scripted
+answers from `lib/assistant.ts`.

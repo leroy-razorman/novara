@@ -1,29 +1,35 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
-import CartDrawer from "@/components/CartDrawer";
-import { CartProvider } from "@/components/CartProvider";
+import { Archivo, Public_Sans } from "next/font/google";
+import { RevealWatcher, Toast } from "@/components/Bits";
+import Chat from "@/components/Chat";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import ProductModal from "@/components/ProductModal";
+import { StoreProvider } from "@/components/Store";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({ variable: "--font-bricolage", subsets: ["latin"] });
-const instrument = Instrument_Sans({ variable: "--font-instrument", subsets: ["latin"] });
+const archivo = Archivo({ variable: "--font-archivo", subsets: ["latin"], axes: ["wdth"] });
+const publicSans = Public_Sans({ variable: "--font-public-sans", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: { default: "Novara — Cleaning that pulls its weight", template: "%s · Novara" },
-  description: "Hard-working detergents and cleaning products for homes and businesses, in everyday and bulk sizes.",
+  title: { default: "Novara — A new day, every day", template: "Novara — %s" },
+  description: "Novara is a health organisation and maker of household cleaning products. A new day, every day.",
+  icons: { icon: "/mark-light.png" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${bricolage.variable} ${instrument.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col font-sans">
-        <CartProvider>
+    <html lang="en" className={`${archivo.variable} ${publicSans.variable}`}>
+      <body>
+        <StoreProvider>
           <Header />
-          <main className="flex-1">{children}</main>
+          <main id="main">{children}</main>
           <Footer />
-          <CartDrawer />
-        </CartProvider>
+          <ProductModal />
+          <Chat />
+          <Toast />
+          <RevealWatcher />
+        </StoreProvider>
       </body>
     </html>
   );
